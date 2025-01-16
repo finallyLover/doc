@@ -1,0 +1,40 @@
+```sell
+version: '3.5'
+
+services:
+  photoprism:
+    image: photoprism/photoprism:latest
+    container_name: photoprism
+    stop_grace_period: 10s
+    restart: always
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    ports:
+      - "2342:2342"
+    environment:
+      PHOTOPRISM_ADMIN_USER: "admin"                 # 用户名
+      PHOTOPRISM_ADMIN_PASSWORD: "admin1234"         # 用户密码(不少于8位)
+      PHOTOPRISM_AUTH_MODE: "password"               # 授权模式, public 或 password
+
+      # 数据库配置, 这里配置了sql
+      #PHOTOPRISM_DATABASE_DRIVER: "sqlite"         # 使用内置的SQLite数据库
+
+      # 正式使用,建议使用mariadb数据库
+      
+      PHOTOPRISM_DATABASE_DRIVER: "mariadb"                # 使用MariaDB 10.5 以上的数据库
+      PHOTOPRISM_DATABASE_SERVER: "192.168.0.103:3308"   # MariaDB数据库地址 (hostname:port)
+      PHOTOPRISM_DATABASE_NAME: "photoprism"             # MariaDB数据库名称
+      PHOTOPRISM_DATABASE_USER: "root"             # MariaDB用户名
+      PHOTOPRISM_DATABASE_PASSWORD: "root"         # MariaDB密码
+
+      # 网站标题
+      PHOTOPRISM_SITE_CAPTION: "我的相册"
+      
+    working_dir: "/photoprism" # 不要改动这一项
+    
+    volumes:
+      - "./originals:/data/photoprism/originals"               # 原始照片目录
+      - "./import/Z:/data/photoprism/import"                   # 待导入照片目录
+      - "./storage:/data/photoprism/storage"                   # photoprism程序产生的各种缓存,文件,索引等目录
+```
