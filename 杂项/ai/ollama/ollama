@@ -1,0 +1,65 @@
+# ollama
+
+### 官网地址
+
+https://ollama.com/download/linux
+
+### 安装
+
+```
+curl -fsSL https://ollama.com/install.sh | sh
+#查看版本
+ollama -v
+#查看模型列表
+ollama list
+
+#下载启动大模型  大模型类型可以在官网中查看
+ollama run qwen2
+
+#启动
+ systemctl start ollama.service
+ #停止
+ systemctl stop ollama.service
+#加载配置文件
+systemctl daemon-reload
+```
+
+**备注1**：如果需要其他地址访问则需要修改配置文件
+
+```
+#配置文件路径或者直接修改配置文件(具体配置文件在哪儿)
+sudo vim /etc/systemd/system/ollama.service.d/override.conf
+
+sudo vim /etc/systemd/system/ollama.service
+
+
+#添加的内容
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0"
+
+```
+
+**备注二：**如果下载ollama超时
+
+```
+sudo vim /etc/hosts
+
+# github 注意下面的IP地址和域名之间有一个空格
+140.82.114.3 github.com
+199.232.69.194 github.global.ssl.fastly.net
+185.199.108.153 assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
+```
+
+### maxkb、FastGPT
+
+### 安装maxkb
+
+```
+docker run -d --name=maxkb -p 8081:8080 -v ~/.maxkb:/var/lib/postgresql/data cr2.fit2cloud.com/1panel/maxkb
+```
+
+
+
