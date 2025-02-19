@@ -31,4 +31,4 @@ docker-compose -f docker-compose-photoPrism.yml up -d
 
 http://ip:2342
 
-![image-20250114214227687](G:\project\my-project\doc\杂项\PhotoPrism\images\image-20250114214227687.png)
+![image-20250114214227687](\images\image-20250114214227687.png)
